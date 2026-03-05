@@ -48,7 +48,7 @@ public class DB {
             String hashedPassword = PasswordEncryptor.hashPassword(password, salt);
             String storedPassword = salt + ":" + hashedPassword;
 
-            String query = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+            String query = "INSERT INTO users (username, password, role, updated_at) VALUES (?, ?, ?, datetime('now'))";
             try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
                 stmt.setString(2, storedPassword);
@@ -99,7 +99,7 @@ public class DB {
     }
 
     public boolean updateUsername(String currentUsername, String newUsername) {
-        String query = "UPDATE users SET username = ? WHERE username = ?";
+        String query = "UPDATE users SET username = ?, updated_at = datetime('now') WHERE username = ?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, newUsername);
             pstmt.setString(2, currentUsername);
@@ -111,7 +111,7 @@ public class DB {
     }
 
     public boolean updatePassword(String username, String newPassword) {
-        String query = "UPDATE users SET password = ? WHERE username = ?";
+        String query = "UPDATE users SET password = ?, updated_at = datetime('now') WHERE username = ?";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             String salt = PasswordEncryptor.generateSalt();
             String hashedPassword = PasswordEncryptor.hashPassword(newPassword, salt);
@@ -140,7 +140,7 @@ public class DB {
     }
 
     public void insertFileRecord(String fileName, String uploader) throws SQLException {
-        String query = "INSERT OR REPLACE INTO files (file_name, uploaded_by, upload_date) VALUES (?, ?, ?)";
+        String query = "INSERT OR REPLACE INTO files (file_name, uploaded_by, upload_date, updated_at) VALUES (?, ?, ?, datetime('now'))";
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, fileName);
             pstmt.setString(2, uploader);

@@ -29,7 +29,9 @@ public class SessionManager {
     /** Returns the currently logged-in user, or {@code null} if none or session expired. */
     public User getLoggedInUser() {
         if (loggedInUser != null && isSessionExpired()) {
+            String expiredUser = loggedInUser.getUsername();
             clearSession();
+            AuditLogger.log(expiredUser, AuditLogger.Action.SESSION_EXPIRED, expiredUser, null);
             return null;
         }
         return loggedInUser;

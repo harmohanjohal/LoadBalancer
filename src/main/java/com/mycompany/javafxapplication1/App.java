@@ -8,11 +8,15 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
+
+    private static final Logger logger = Logger.getLogger(App.class.getName());
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,6 +33,15 @@ public class App extends Application {
         } catch (Exception e) {
             showStartupErrorAndExit("Database Migration Error", "Failed to run database migrations.\n" + e.getMessage());
             return;
+        }
+
+        AuditLogger.log(null, AuditLogger.Action.APP_STARTED, null, null);
+
+        // Synchronise local SQLite with remote MySQL (if configured)
+        try {
+            new SyncService().syncAll();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Initial database sync failed", e);
         }
 
         // Load login page

@@ -104,8 +104,11 @@ public class RegisterController {
         // Register user
         try {
             if (authService.registerUser(username, password, role)) {
+                AuditLogger.log(username, AuditLogger.Action.USER_REGISTERED, username, "Role: " + role);
                 showAlert("Success", "User registered successfully as a " + role + " user.");
             } else {
+                AuditLogger.logFailure(username, AuditLogger.Action.USER_REGISTERED, username,
+                        "Registration failed – duplicate username");
                 showAlert("Registration Failed", "A user with this username already exists.");
             }
         } catch (Exception e) {

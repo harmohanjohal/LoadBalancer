@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.mycompany.javafxapplication1.EditFileController"
+      spacing="16" alignment="TOP_CENTER" prefWidth="520" prefHeight="480"
+      styleClass="page-bg-light">
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+    <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+
+    <Label text="Edit File" styleClass="heading"/>
+
+    <!-- File name (read-only) -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="File:" styleClass="field-label"/>
+        <TextField fx:id="fileNameField" editable="false" HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <!-- Content editor -->
+    <Label text="Content" styleClass="field-label" alignment="CENTER_LEFT" maxWidth="Infinity"/>
+    <TextArea fx:id="fileContentArea" VBox.vgrow="ALWAYS" wrapText="true"
+              style="-fx-font-family: 'Consolas', 'Courier New', monospace;"/>
+
+    <!-- Action buttons -->
+    <HBox spacing="12" alignment="CENTER_RIGHT">
+        <Button text="Save Changes" styleClass="btn-primary" onAction="#saveChangesHandler"/>
+        <Button text="Cancel" styleClass="btn-outline" onAction="#cancelHandler"/>
+    </HBox>
+</VBox>

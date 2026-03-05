@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.mycompany.javafxapplication1.RegisterController"
+           prefWidth="600" prefHeight="550" styleClass="page-bg">
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+    <!-- Centered card -->
+    <VBox alignment="CENTER" maxWidth="420" maxHeight="-Infinity" spacing="20" styleClass="card">
+        <padding><Insets top="36" right="36" bottom="36" left="36"/></padding>
+
+        <!-- Header -->
+        <VBox alignment="CENTER" spacing="4">
+            <Label text="Create Account" styleClass="title"/>
+            <Label text="Fill in the details below" styleClass="subtitle"/>
+        </VBox>
+
+        <!-- Username -->
+        <VBox spacing="6">
+            <Label text="Username" styleClass="field-label"/>
+            <TextField fx:id="userTextField" promptText="Choose a username"/>
+        </VBox>
+
+        <!-- Password -->
+        <VBox spacing="6">
+            <Label text="Password" styleClass="field-label"/>
+            <PasswordField fx:id="passPasswordField" promptText="Enter a password"/>
+        </VBox>
+
+        <!-- Confirm Password -->
+        <VBox spacing="6">
+            <Label text="Confirm Password" styleClass="field-label"/>
+            <PasswordField fx:id="rePassPasswordField" promptText="Re-enter your password"/>
+        </VBox>
+
+        <!-- Admin checkbox -->
+        <CheckBox fx:id="masterCheckbox" text="Register as Admin" onAction="#toggleMasterPasswordField"/>
+
+        <!-- Master Password (disabled by default) -->
+        <VBox spacing="6">
+            <Label text="Master Password" styleClass="field-label"/>
+            <TextField fx:id="masterPasswordField" promptText="Enter master password" disable="true"/>
+        </VBox>
+
+        <!-- Buttons -->
+        <HBox spacing="12" alignment="CENTER">
+            <Button fx:id="registerBtn" text="Register" prefWidth="140" styleClass="btn-success"
+                    onAction="#registerHandler"/>
+            <Button fx:id="backLoginBtn" text="Back to Login" prefWidth="140" styleClass="btn-outline"
+                    onAction="#backLoginBtnHandler"/>
+        </HBox>
+    </VBox>
+</StackPane>

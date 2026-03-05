@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.mycompany.javafxapplication1.App",
+            "projectName": "JavaFXApplication1"
+        },
+        {
+            "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "com.mycompany.javafxapplication1.Launcher",
+            "projectName": "JavaFXApplication1",
+            "env": {
+                "FILE_ENCRYPTION_PASSWORD": "ChangeMe12345!"
+            }
+        }
+    ]
+}

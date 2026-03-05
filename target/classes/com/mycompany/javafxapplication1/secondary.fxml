@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.javafxapplication1.SecondaryController"
+            prefWidth="860" prefHeight="540" styleClass="page-bg-light">
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+    <!-- Top toolbar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="16" styleClass="toolbar">
+            <padding><Insets top="10" right="24" bottom="10" left="24"/></padding>
+            <Label text="User Management" styleClass="heading" HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="uploadFileButton" text="File Manager" styleClass="btn-info"
+                    onAction="#openFileUploadScreen"/>
+            <Button fx:id="logoutButton" text="Logout" styleClass="btn-danger"
+                    onAction="#logoutHandler"/>
+        </HBox>
+    </top>
+
+    <!-- Main content -->
+    <center>
+        <VBox spacing="16" alignment="TOP_CENTER">
+            <padding><Insets top="24" right="32" bottom="24" left="32"/></padding>
+
+            <VBox styleClass="card-flat" VBox.vgrow="ALWAYS">
+                <TableView fx:id="userTableView" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="usernameColumn" text="Username" prefWidth="180"/>
+                        <TableColumn fx:id="passwordColumn" text="Password" prefWidth="160"/>
+                        <TableColumn fx:id="roleColumn" text="Role" prefWidth="120"/>
+                        <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="220"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mycompany.javafxapplication1.FileUploadController"
+            prefWidth="860" prefHeight="580" styleClass="page-bg-light">
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+    <!-- Top bar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="12" styleClass="toolbar">
+            <padding><Insets top="10" right="24" bottom="10" left="24"/></padding>
+            <Button fx:id="backBtn" text="← Back" styleClass="btn-outline"
+                    onAction="#backBtnHandler"/>
+            <Label text="File Manager" styleClass="heading" HBox.hgrow="ALWAYS"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="uploadButton" text="Upload File" styleClass="btn-primary"
+                    onAction="#uploadFileHandler"/>
+            <Button fx:id="downloadBtn" text="Download" styleClass="btn-success"
+                    onAction="#downloadFileHandler"/>
+        </HBox>
+    </top>
+
+    <!-- Table -->
+    <center>
+        <VBox spacing="16" alignment="TOP_CENTER">
+            <padding><Insets top="24" right="32" bottom="16" left="32"/></padding>
+
+            <VBox styleClass="card-flat" VBox.vgrow="ALWAYS">
+                <TableView fx:id="fileTableView" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="fileNameColumn" text="File Name" prefWidth="220"/>
+                        <TableColumn fx:id="uploadDateColumn" text="Upload Date" prefWidth="160"/>
+                        <TableColumn fx:id="uploadedByColumn" text="Uploaded By" prefWidth="160"/>
+                        <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="220"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Footer -->
+    <bottom>
+        <HBox alignment="CENTER" styleClass="toolbar">
+            <Label text="Manage your files — upload, edit, download and delete with ease."
+                   styleClass="footer-text"/>
+        </HBox>
+    </bottom>
+</BorderPane>

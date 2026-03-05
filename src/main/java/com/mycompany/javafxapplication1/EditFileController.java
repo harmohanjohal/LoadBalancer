@@ -53,6 +53,9 @@ public class EditFileController {
         try {
             Files.writeString(file.toPath(), fileContentArea.getText());
             FileUtils.encryptFile(file, new File(FileUtils.UPLOADS_DIR + "/" + file.getName() + ".zip"));
+            User currentUser = SessionManager.getInstance().getLoggedInUser();
+            AuditLogger.log(currentUser != null ? currentUser.getUsername() : null,
+                    AuditLogger.Action.FILE_EDITED, file.getName(), "Content saved");
             showInfoAlert("Success", "File changes saved.");
             closeWindow();
         } catch (IOException e) {

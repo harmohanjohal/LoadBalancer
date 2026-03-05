@@ -1,0 +1,4 @@
+Mar 05, 2026 1:19:05 PM com.mycompany.javafxapplication1.AuditLogger log
+INFO: [2026-03-05 13:19:05] user=SYSTEM action=APP_STARTED target=- status=SUCCESS details=-
+Mar 05, 2026 1:19:12 PM com.mycompany.javafxapplication1.AuditLogger log
+INFO: [2026-03-05 13:19:12] user=a1- action=LOGIN_SUCCESS target=a1- status=SUCCESS details=-

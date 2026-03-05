@@ -146,6 +146,9 @@ public class FileUploadController {
                 }
                 fileService.registerUploadedFile(fileName, uploader, chunkNames);
 
+                AuditLogger.log(uploader, AuditLogger.Action.FILE_UPLOADED, fileName,
+                        chunkNames.size() + " chunks");
+
                 // Refresh file list
                 loadUploadedFiles();
                 showInfoAlert("Success", "File uploaded and encrypted successfully.");
@@ -219,6 +222,9 @@ public class FileUploadController {
                 if (zipFile.exists()) {
                     zipFile.delete();
                 }
+
+                AuditLogger.log(loggedInUser != null ? loggedInUser.getUsername() : null,
+                        AuditLogger.Action.FILE_DELETED, fileRow.getFileName(), null);
 
                 loadUploadedFiles(); // Refresh file list
                 showInfoAlert("Success", "File deleted successfully.");
@@ -336,6 +342,9 @@ public class FileUploadController {
 
                 File decryptedFile = new File(tempOutputDir, selectedFile.getFileName());
                 Files.copy(decryptedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+                AuditLogger.log(loggedInUser != null ? loggedInUser.getUsername() : null,
+                        AuditLogger.Action.FILE_DOWNLOADED, selectedFile.getFileName(), null);
 
                 showInfoAlert("Success", "File downloaded and decrypted successfully.");
             } catch (SecurityException e) {

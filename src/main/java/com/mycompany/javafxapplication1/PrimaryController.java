@@ -85,6 +85,7 @@ public class PrimaryController {
                 lockoutUntil.remove(username);
 
                 SessionManager.getInstance().setLoggedInUser(authenticatedUser);
+                AuditLogger.log(username, AuditLogger.Action.LOGIN_SUCCESS, username, null);
 
                 Parent root = FXMLLoader.load(getClass().getResource("secondary.fxml"));
                 Stage stage = (Stage) userTextField.getScene().getWindow();
@@ -98,9 +99,12 @@ public class PrimaryController {
                 if (count[0] >= MAX_FAILED_ATTEMPTS) {
                     lockoutUntil.put(username, System.currentTimeMillis() + LOCKOUT_DURATION_MS);
                     failedAttempts.remove(username);
+                    AuditLogger.logFailure(username, AuditLogger.Action.LOGIN_LOCKED, username,
+                            "Account locked for 30 seconds");
                     showAlert("Account Locked",
                             "Too many failed attempts. Account locked for 30 seconds.");
                 } else {
+                    AuditLogger.logFailure(username, AuditLogger.Action.LOGIN_FAILURE, username, null);
                     showAlert("Login Failed", "Invalid username or password.");
                 }
             }

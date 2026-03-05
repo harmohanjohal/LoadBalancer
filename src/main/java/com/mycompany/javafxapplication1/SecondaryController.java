@@ -108,6 +108,9 @@ public class SecondaryController {
 
     @FXML
     private void logoutHandler(ActionEvent event) {
+        User user = SessionManager.getInstance().getLoggedInUser();
+        String username = user != null ? user.getUsername() : null;
+        AuditLogger.log(username, AuditLogger.Action.LOGOUT, username, null);
         SessionManager.getInstance().clearSession();
         navigateToLoginScreen();
     }
@@ -204,6 +207,9 @@ public class SecondaryController {
                 newUsername.ifPresent(username -> {
                     try {
                         if (userService.updateUsername(user.getUsername(), username, loggedInUser)) {
+                            AuditLogger.log(loggedInUser.getUsername(),
+                                    AuditLogger.Action.USER_USERNAME_UPDATED,
+                                    user.getUsername(), "New username: " + username);
                             showAlert("Success", "Username updated successfully!");
                             refreshTable();
                         } else {
@@ -240,6 +246,9 @@ public class SecondaryController {
                 newPassword.ifPresent(password -> {
                     try {
                         if (userService.updatePassword(user.getUsername(), password, loggedInUser)) {
+                            AuditLogger.log(loggedInUser.getUsername(),
+                                    AuditLogger.Action.USER_PASSWORD_UPDATED,
+                                    user.getUsername(), null);
                             showAlert("Success", "Password updated successfully!");
                             refreshTable();
                         } else {
@@ -273,6 +282,9 @@ public class SecondaryController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 if (userService.deleteUser(user.getUsername(), loggedInUser)) {
+                    AuditLogger.log(loggedInUser.getUsername(),
+                            AuditLogger.Action.USER_DELETED,
+                            user.getUsername(), null);
                     showAlert("Success", "User deleted successfully!");
                     refreshTable();
                 } else {
